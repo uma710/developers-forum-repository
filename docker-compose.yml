@@ -14,13 +14,24 @@ services:
       - DJANGO_DB_HOST=db
       - DJANGO_DB_PORT=5432
   db:
-    image: postgres
+    image: postgres:16
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=password
     volumes:
       - postgres_data:/var/lib/postgresql/data
+  pgadmin:
+    image: dpage/pgadmin4:7.8
+    container_name: pgadmin_container
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: adminpassword
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin4-data:/var/lib/pgadmin
 
 volumes:
   postgres_data:
+  pgadmin4-data:
